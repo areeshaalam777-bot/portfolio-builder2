@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Public Portfolio</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+   
+
+
+:root{
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+
+    --bg:#f8fafc;
+    --card:#ffffff;
+
+    --text:#0f172a;
+    --muted:#64748b;
+    --border:#e2e8f0;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:"Segoe UI",sans-serif;
+}
+
+/* HERO */
+
+.hero{
+
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+
+    color:white;
+
+     padding:40px 20px;
+
+    text-align:center;
+
+    margin-bottom:50px;
+
+     animation:fadeDown .8s ease;
+}
+
+.hero h1{
+
+    font-size:3rem;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.hero p{
+
+    color:#cbd5e1;
+
+    max-width:700px;
+
+    margin:auto;
+
+    margin-bottom:30px;
+}
+.avatar{
+    width:110px;
+    height:110px;
+    margin:auto;
+    margin-bottom:20px;
+
+    border-radius:50%;
+
+    background:#111827;
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:42px;
+    font-weight:700;
+
+    box-shadow:0 12px 25px rgba(0,0,0,.12);
+    transition:.3s;
+}
+.avatar:hover{
+    transform:scale(1.08);
+}
+/* BUTTONS */
+
+.hero-buttons{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+    margin-top:30px;
+}
+
+.hero-btn{
+    width:310px;
+    height:70px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#1F2937;
+    border:2px solid #374151;
+    border-radius:20px;
+
+    color:#fff;
+    text-decoration:none;
+
+    font-size:18px;
+    font-weight:600;
+
+    transition:.3s;
+
+    padding:0;
+    margin:0;
+}
+
+.hero-btn:hover{
+    background:#111827;
+    color:#fff;
+    text-decoration:none;
+}
+
+/* CONTAINER */
+
+.container{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    padding-bottom:60px;
+}
+
+/* CARD */
+
+.card-box{
+    background:#FFFFFF;
+    border:1px solid #E5E7EB;
+    border-radius:18px;
+    padding:24px;
+    transition:all .3s ease;
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+    animation:fadeUp .7s ease;
+}
+
+.card-box:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 35px rgba(0,0,0,.12);
+}
+
+/* TITLES */
+
+.section-title{
+
+    font-size:1.5rem;
+
+    font-weight:700;
+
+    margin-bottom:20px;
+}
+
+/* SKILLS */
+
+.skills{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+}
+
+.skills span{
+
+    background:#eef4ff;
+
+    color:var(--primary);
+
+    padding:8px 15px;
+
+    border-radius:999px;
+
+    font-weight:600;
+
+    font-size:.9rem;
+}
+
+/* PROJECT */
+
+.card-box h5{
+
+    font-weight:700;
+
+    margin-bottom:10px;
+}
+
+.card-box p{
+
+    color:var(--muted);
+
+    margin-bottom:18px;
+}
+.project-title{
+    font-size:1.2rem;
+    font-weight:700;
+    margin-bottom:10px;
+    color:#1F2937;
+}
+.project-description{
+    color:#6B7280;
+    margin:15px 0;
+    line-height:1.7;
+}
+
+/* LINKS */
+
+a{
+
+    text-decoration:none;
+}
+/* MOBILE */
+
+@media (max-width:768px){
+
+    .hero{
+        padding:60px 20px;
+    }
+
+    .hero h1{
+        font-size:2.2rem;
+    }
+
+    .hero-buttons{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:15px;
+    }
+
+    .hero-buttons a,
+    .hero-buttons button{
+        width:220px;
+        height:55px;
+    }
+
+    .stats{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        gap:20px;
+        margin-top:30px;
+    }
+}
+
+/* Portfolio Stats */
+
+.stats{
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    margin-top:35px;
+    flex-wrap:wrap;
+}
+
+.stat-box{
+    background:#fff;
+    color:#1F2937;
+    border:1px solid #E5E7EB;
+    border-radius:16px;
+    padding:18px 28px;
+    min-width:120px;
+    text-align:center;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    animation:zoomIn .6s ease;
+}
+
+.stat-box h4{
+    margin:0;
+    font-size:1.7rem;
+    font-weight:700;
+}
+
+.stat-box small{
+    color:#6B7280;
+    font-size:.9rem;
+}
+
+/* Animations */
+
+@keyframes fadeDown{
+    from{
+        opacity:0;
+        transform:translateY(-30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes zoomIn{
+    from{
+        opacity:0;
+        transform:scale(.8);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="hero">
+
+    <div class="avatar" id="avatar">
+        A
+    </div>
+
+    <h1 class="name" id="name">
+        Loading...
+    </h1>
+
+    <p class="bio" id="bio"></p>
+
+    <div class="hero-buttons">
+
+        <a id="githubBtn"
+           class="hero-btn"
+           target="_blank"
+           style="display:none;">
+            GitHub
+        </a>
+
+        <a id="linkedinBtn"
+           class="hero-btn"
+           target="_blank"
+           style="display:none;">
+            LinkedIn
+        </a>
+
+    <a id="resumeBtn"
+       href="#"
+       class="hero-btn"
+       target="_blank"
+       style="display:none;">
+        Resume
+    </a>
+
+    <button class="hero-btn"
+            onclick="copyPortfolioLink()">
+        Copy Portfolio Link
+    </button>
+
+    </div>
+
+    <!-- Portfolio Statistics -->
+    <div class="stats">
+
+        <div class="stat-box">
+            <h4 id="projectCount">0</h4>
+            <small>Projects</small>
+        </div>
+
+        <div class="stat-box">
+            <h4 id="skillCount">0</h4>
+            <small>Skills</small>
+        </div>
+
+        <div class="stat-box">
+            <h4 id="viewCount">0</h4>
+            <small>Views</small>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+
+    <!-- ABOUT -->
+    <!-- <div class="card-box">
+
+        <h3 class="section-title">
+            About Me
+        </h3>
+
+        <p id="education"></p>
+
+        <p id="email"></p>
+
+        <p id="views"></p>
+
+    
+         <div id="skillsSection">
+
+  <div class="section-title">
+    Skills
+  </div>
+
+  <div class="skills" id="skills"></div>
+
+</div>
+
+    </div> -->
+  
+    <div class="card-box">
+
+    <h3 class="section-title">
+        About Me
+    </h3>
+
+    <p>
+        <strong>Education</strong><br>
+        <span id="education"></span>
+    </p>
+
+    <hr>
+
+    <p>
+        <strong>Public Email</strong><br>
+        <span id="email"></span>
+    </p>
+
+    <hr>
+
+    <p>
+        <strong>Portfolio Views</strong><br>
+        <span id="views"></span>
+    </p>
+
+</div>
+
+<div id="skillsSection">
+
+    <div class="section-title">
+        Skills
+    </div>
+
+    <div class="skills" id="skills"></div>
+
+</div>
+
+    <!-- PROJECTS -->
+
+    <h3 class="section-title mt-4">
+        My Projects
+    </h3>
+   <input
+    type="text"
+    id="searchProject"
+    class="form-control mb-4"
+    placeholder="Search projects..."
+    onkeyup="filterProjects()"
+>
+    <div id="projects" class="row g-4"></div>
+</div>
+
+<script>
+
+let allProjects = [];
+
+async function loadPortfolio() {
+
+    const username = window.location.pathname.split("/").pop();
+
+    const res = await fetch("/api/profile/" + username);
+    const data = await res.json();
+
+    if (!res.ok) {
+
+        document.body.innerHTML =
+            "<h2 style='text-align:center;margin-top:80px;'>Profile not found</h2>";
+
+        return;
+    }
+
+    // ==========================
+    // HERO
+    // ==========================
+
+    document.getElementById("name").innerText =
+        data.profile.username;
+
+    document.getElementById("bio").innerText =
+        data.profile.bio || "";
+
+    document.getElementById("avatar").innerText =
+        data.profile.username.charAt(0).toUpperCase();
+
+
+    // ==========================
+    // ABOUT
+    // ==========================
+
+    document.getElementById("education").innerText =
+    data.profile.education || "Not added";
+
+document.getElementById("email").innerText =
+    data.profile.emailAddress || "Not provided";
+
+document.getElementById("views").innerText =
+    data.profile.views || 0;
+
+
+    // ==========================
+    // SKILLS
+    // ==========================
+
+    if (data.profile.skills && data.profile.skills.length > 0) {
+
+        document.getElementById("skills").innerHTML =
+            data.profile.skills
+                .map(skill => `<span>${skill}</span>`)
+                .join("");
+
+    } else {
+
+        document.getElementById("skillsSection").style.display = "none";
+
+    }
+
+
+    // ==========================
+    // SOCIAL BUTTONS
+    // ==========================
+
+    if (data.profile.socialLinks?.github) {
+
+        const githubBtn = document.getElementById("githubBtn");
+        githubBtn.href = data.profile.socialLinks.github;
+        githubBtn.style.display = "inline-block";
+
+    }
+
+    if (data.profile.socialLinks?.linkedin) {
+
+        const linkedinBtn = document.getElementById("linkedinBtn");
+        linkedinBtn.href = data.profile.socialLinks.linkedin;
+        linkedinBtn.style.display = "inline-block";
+
+    }
+
+    if (data.profile.resume) {
+
+        const resumeBtn = document.getElementById("resumeBtn");
+        resumeBtn.href = data.profile.resume;
+        resumeBtn.style.display = "inline-block";
+
+    }
+
+
+    // ==========================
+    // PORTFOLIO STATS
+    // ==========================
+
+    document.getElementById("projectCount").innerText =
+        data.projects.length;
+
+    document.getElementById("skillCount").innerText =
+        data.profile.skills ? data.profile.skills.length : 0;
+
+    document.getElementById("viewCount").innerText =
+        data.profile.views || 0;
+
+
+    // ==========================
+    // PROJECTS
+    // ==========================
+
+    allProjects = data.projects;
+
+    renderProjects(allProjects);
+
+}
+
+
+// ==========================
+// RENDER PROJECTS
+// ==========================
+
+function renderProjects(projects) {
+
+    const container = document.getElementById("projects");
+
+    container.innerHTML = "";
+
+    if (projects.length === 0) {
+
+        container.innerHTML = `
+            <div class="col-12">
+                <div class="card-box text-center">
+                    No projects added yet.
+                </div>
+            </div>
+        `;
+
+        return;
+    }
+
+    projects.forEach(project => {
+
+        container.innerHTML += `
+
+        <div class="col-md-6">
+
+            <div class="card-box h-100">
+
+                <h5>${project.title}</h5>
+
+                <p class="project-description">
+                    ${project.description || "No description provided."}
+                </p>
+
+                ${
+                    project.github
+                    ? `
+                    <a href="${project.github}"
+                       target="_blank"
+                       class="btn-custom me-2 mb-2">
+                        GitHub
+                    </a>
+                    `
+                    : ""
+                }
+
+                ${
+                    project.liveLink
+                    ? `
+                    <a href="${project.liveLink}"
+                       target="_blank"
+                       class="btn-custom mb-2">
+                        Live Demo
+                    </a>
+                    `
+                    : ""
+                }
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+}
+
+
+// ==========================
+// SEARCH PROJECTS
+// ==========================
+
+function filterProjects() {
+
+    const keyword =
+        document.getElementById("searchProject")
+        .value
+        .toLowerCase();
+
+    const filtered = allProjects.filter(project =>
+
+        project.title.toLowerCase().includes(keyword)
+
+        ||
+
+        (project.description || "")
+            .toLowerCase()
+            .includes(keyword)
+
+    );
+
+    renderProjects(filtered);
+
+}
+
+
+// ==========================
+// COPY PORTFOLIO LINK
+// ==========================
+
+function copyPortfolioLink() {
+
+    navigator.clipboard.writeText(window.location.href);
+
+    alert("Portfolio link copied!");
+
+}
+
+
+// ==========================
+// LOAD PAGE
+// ==========================
+
+loadPortfolio();
+
+</script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Profile - Portfolio Builder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+     /* body{
+      margin:0;
+      background:#FAFAF7;
+      font-family:"Segoe UI", sans-serif;
+      color:#1F2937;
+    }
+     
+
+    .sidebar{
+      width:240px;
+      height:100vh;
+      position:fixed;
+      background:#FFFFFF;
+      border-right:1px solid #E5E7EB;
+      padding:20px;
+    }
+     
+
+
+     .brand{
+      font-size:1.3rem;
+      font-weight:700;
+      color:#334155;
+      margin-bottom:30px;
+    }
+     
+
+    .nav-link{
+      display:block;
+      padding:10px;
+      margin-bottom:8px;
+      color:#6B7280;
+      text-decoration:none;
+      border-radius:10px;
+    }
+
+    .nav-link:hover{
+      background:#F3F4F6;
+      color:#1F2937;
+    }
+  
+
+    
+    .main{
+      margin-left:260px;
+      padding:30px;
+    }
+
+    .title{
+      font-size:1.8rem;
+      font-weight:700;
+      margin-bottom:5px;
+    }
+
+    .subtitle{
+      color:#6B7280;
+      margin-bottom:25px;
+    }
+
+    .card-box{
+      background:#FFFFFF;
+      border:1px solid #E5E7EB;
+      border-radius:16px;
+      padding:20px;
+    }
+
+    
+
+
+    .form-control{
+      border:1px solid #E5E7EB;
+      border-radius:10px;
+      padding:10px;
+    }
+
+    .form-control:focus{
+      border-color:#334155;
+      box-shadow:none;
+    }
+    
+
+    
+    .btn-custom{
+      background:#334155;
+      color:white;
+      border:none;
+      padding:10px 15px;
+      border-radius:10px;
+    }
+
+    .btn-custom:hover{
+      background:#1F2937;
+    }
+      */
+
+
+:root{
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+
+    --bg:#f8fafc;
+    --card:#ffffff;
+
+    --text:#0f172a;
+    --muted:#64748b;
+
+    --border:#e2e8f0;
+}
+
+body{
+    margin:0;
+    background:var(--bg);
+    font-family:"Segoe UI",sans-serif;
+    color:var(--text);
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:240px;
+    height:100vh;
+    position:fixed;
+    background:var(--card);
+    border-right:1px solid var(--border);
+    padding:20px;
+}
+
+
+ .brand{
+    font-size:1.4rem;
+    font-weight:700;
+    color:#0f172a;
+    margin-bottom:30px;
+}
+
+.nav-link{
+    display:block;
+    padding:12px 15px;
+    margin-bottom:10px;
+    color:var(--muted);
+    text-decoration:none;
+    border-radius:12px;
+    transition:.3s;
+}
+
+.nav-link:hover{
+    background:#eff6ff;
+    color:var(--primary);
+}
+
+/* Main */
+
+.main{
+    margin-left:260px;
+    padding:40px;
+}
+
+.title{
+    font-size:2rem;
+    font-weight:700;
+}
+
+.subtitle{
+    color:var(--muted);
+    margin-bottom:30px;
+}
+
+/* Card */
+
+.card-box{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:35px;
+
+    box-shadow:0 10px 35px rgba(15,23,42,.05);
+
+    transition:.3s;
+}
+
+.card-box:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 40px rgba(15,23,42,.08);
+}
+
+/* Inputs */
+
+.form-control{
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px;
+}
+
+.form-control:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 .25rem rgba(37,99,235,.15);
+}
+
+/* Button */
+
+.btn-custom{
+    background:var(--primary);
+    color:white !important;
+    border:none;
+    padding:14px 28px;
+    border-radius:14px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-custom:hover{
+    background:var(--primary-dark);
+    color:white !important;
+    transform:translateY(-2px);
+}
+
+label{
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+
+    <div class="brand">
+        Portfolio Builder
+    </div>
+
+    <a class="nav-link" href="/dashboard">
+        📊 Dashboard
+    </a>
+
+    <a class="nav-link" href="/profile">
+        👤 Profile
+    </a>
+
+    <a class="nav-link" href="/projects">
+        💼 Projects
+    </a>
+
+    <a class="nav-link" id="portfolioLink">
+        🌐 Public Portfolio
+    </a>
+
+    <hr>
+
+    <a class="nav-link text-danger" href="#" onclick="logout()">
+        🚪 Logout
+    </a>
+
+</div>
+
+<div class="main">
+
+  <div class="title">My Profile</div>
+  <div class="subtitle">Update your personal portfolio information</div>
+
+  <div class="card-box">
+   
+
+    <form id="profileForm" enctype="multipart/form-data">
+
+  <input
+    id="username"
+    class="form-control mb-3"
+    placeholder="Username"
+    required
+  >
+
+  <textarea
+    id="bio"
+    class="form-control mb-3"
+    placeholder="Bio"
+  ></textarea>
+
+  <input
+    id="skills"
+    class="form-control mb-3"
+    placeholder="Skills (comma separated)"
+  >
+
+  <input
+    id="education"
+    class="form-control mb-3"
+    placeholder="Education"
+  >
+
+  <input
+    id="github"
+    class="form-control mb-3"
+    placeholder="GitHub"
+  >
+
+  <input
+    id="linkedin"
+    class="form-control mb-3"
+    placeholder="LinkedIn"
+  >
+
+  <input
+    id="emailAddress"
+    class="form-control mb-3"
+    placeholder="Public Email"
+  >
+
+  <label class="mb-2 fw-semibold">
+    Upload Resume (PDF)
+  </label>
+
+  <input
+    type="file"
+    id="resume"
+    class="form-control mb-3"
+    accept=".pdf"
+  >
+ 
+
+
+  <button
+    class="btn-custom"
+    type="submit"
+  >
+    Save Profile
+  </button>
+
+</form>
+  </div>
+
+</div>
+
+<script>
+
+
+const token = localStorage.getItem("token");
+
+if (!token) {
+  window.location.href = "/login";
+}
+
+// LOAD PROFILE
+async function loadProfile() {
+  const res = await fetch("/api/profile/me", {
+    headers: {
+      Authorization: "Bearer " + token,
+    },
+  });
+
+  const data = await res.json();
+
+  if (!res.ok) return;
+
+  document.getElementById("username").value = data.username || "";
+  document.getElementById("bio").value = data.bio || "";
+  document.getElementById("skills").value =
+    data.skills?.join(", ") || "";
+  document.getElementById("education").value =
+    data.education || "";
+  document.getElementById("github").value =
+    data.socialLinks?.github || "";
+  document.getElementById("linkedin").value =
+    data.socialLinks?.linkedin || "";
+  document.getElementById("emailAddress").value =
+    data.emailAddress || "";
+}
+
+loadProfile();
+
+// SAVE PROFILE
+document
+  .getElementById("profileForm")
+  .addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append(
+      "username",
+      document.getElementById("username").value
+    );
+
+    formData.append(
+      "bio",
+      document.getElementById("bio").value
+    );
+
+    formData.append(
+      "skills",
+      document.getElementById("skills").value
+    );
+
+    formData.append(
+      "education",
+      document.getElementById("education").value
+    );
+
+    formData.append(
+      "emailAddress",
+      document.getElementById("emailAddress").value
+    );
+
+    formData.append(
+      "socialLinks[github]",
+      document.getElementById("github").value
+    );
+
+    formData.append(
+      "socialLinks[linkedin]",
+      document.getElementById("linkedin").value
+    );
+
+    const resumeInput = document.getElementById("resume");
+
+    if (resumeInput && resumeInput.files.length > 0) {
+      formData.append("resume", resumeInput.files[0]);
+    }
+
+    const res = await fetch("/api/profile", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      localStorage.setItem(
+        "username",
+        document.getElementById("username").value
+      );
+
+      alert("Profile saved successfully");
+    } else {
+      alert(data.message || "Error saving profile");
+    }
+  });
+    const username = localStorage.getItem("username");
+
+const portfolioLink = document.getElementById("portfolioLink");
+
+if (portfolioLink) {
+    if (username) {
+        portfolioLink.href = `/portfolio/${username}`;
+    } else {
+        portfolioLink.style.display = "none";
+    }
+}
+
+function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    window.location.href = "/login";
+}
+</script>
+
+</body>
+</html>

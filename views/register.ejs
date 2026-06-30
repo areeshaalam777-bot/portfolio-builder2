@@ -1,0 +1,425 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Register - Portfolio Builder</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body{
+      margin:0;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#FAFAF7;
+      font-family:"Segoe UI", sans-serif;
+      color:#1F2937;
+    }
+
+    .register-card{
+      width:380px;
+      background:#FFFFFF;
+      border:1px solid #E5E7EB;
+      border-radius:16px;
+      padding:30px;
+    }
+
+    .brand{
+      text-align:center;
+      font-size:1.3rem;
+      font-weight:700;
+      color:#334155;
+      margin-bottom:20px;
+    }
+
+    h2{
+      text-align:center;
+      font-size:1.6rem;
+      margin-bottom:20px;
+    }
+
+    .form-control{
+      border:1px solid #E5E7EB;
+      border-radius:10px;
+      padding:10px;
+    }
+
+    .form-control:focus{
+      border-color:#334155;
+      box-shadow:none;
+    }
+
+    .btn-custom{
+      width:100%;
+      background:#334155;
+      color:white;
+      padding:10px;
+      border-radius:10px;
+      border:none;
+      margin-top:10px;
+    }
+
+    .btn-custom:hover{
+      background:#1F2937;
+    }
+
+    .text-small{
+      text-align:center;
+      margin-top:15px;
+      font-size:0.9rem;
+      color:#6B7280;
+    }
+
+    a{
+      color:#334155;
+      text-decoration:none;
+      font-weight:500;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="register-card">
+
+  <div class="brand">Portfolio Builder</div>
+
+  <h2>Create Account</h2>
+
+  <form id="registerForm">
+
+    <input type="text" class="form-control mb-3" placeholder="Name" id="name" required>
+
+    <input type="email" class="form-control mb-3" placeholder="Email" id="email" required>
+
+    <input type="password" class="form-control mb-3" placeholder="Password" id="password" required>
+
+    <button class="btn-custom" type="submit">Register</button>
+
+  </form>
+
+  <div class="text-small">
+    Already have an account?
+    <a href="/login">Login</a>
+  </div>
+
+</div>
+
+<script>
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const res = await fetch("/api/auth/register", {
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({ name, email, password })
+  });
+
+  const data = await res.json();
+
+  if(res.ok){
+    alert("Account created successfully");
+    window.location.href = "/login";
+  } else {
+    alert(data.message || "Registration failed");
+  }
+});
+</script>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Register - Portfolio Builder</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            background:#FAFAF7;
+            font-family:"Segoe UI",sans-serif;
+            color:#1F2937;
+            height:100vh;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+        }
+
+        .register-wrapper{
+            width:1000px;
+            max-width:95%;
+            min-height:600px;
+            background:#FFFFFF;
+            border:1px solid #E5E7EB;
+            border-radius:20px;
+            overflow:hidden;
+            display:flex;
+            box-shadow:0 15px 40px rgba(0,0,0,.08);
+        }
+
+        /* LEFT */
+
+        .left-panel{
+            width:45%;
+            background:#334155;
+            color:white;
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
+            padding:50px;
+        }
+
+        .brand{
+            font-size:2rem;
+            font-weight:700;
+            margin-bottom:20px;
+        }
+
+        .tagline{
+            font-size:2.2rem;
+            font-weight:700;
+            line-height:1.3;
+            margin-bottom:20px;
+        }
+
+        .description{
+            color:#CBD5E1;
+            line-height:1.8;
+            font-size:1rem;
+        }
+
+        /* RIGHT */
+
+        .right-panel{
+            width:55%;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:50px;
+        }
+
+        .register-box{
+            width:100%;
+            max-width:420px;
+        }
+
+        .title{
+            font-size:2rem;
+            font-weight:700;
+            margin-bottom:8px;
+        }
+
+        .subtitle{
+            color:#6B7280;
+            margin-bottom:35px;
+        }
+
+        .form-control{
+            border:1px solid #E5E7EB;
+            border-radius:10px;
+            padding:12px;
+            margin-bottom:18px;
+        }
+
+        .form-control:focus{
+            border-color:#334155;
+            box-shadow:none;
+        }
+
+        .btn-custom{
+            width:100%;
+            background:#334155;
+            color:white;
+            border:none;
+            padding:12px;
+            border-radius:10px;
+            font-weight:600;
+            transition:.3s;
+        }
+
+        .btn-custom:hover{
+            background:#1F2937;
+        }
+
+        .bottom-text{
+            text-align:center;
+            margin-top:20px;
+            color:#6B7280;
+        }
+
+        .bottom-text a{
+            text-decoration:none;
+            color:#334155;
+            font-weight:600;
+        }
+
+        @media(max-width:768px){
+
+            .register-wrapper{
+                flex-direction:column;
+            }
+
+            .left-panel,
+            .right-panel{
+                width:100%;
+            }
+
+            .left-panel{
+                text-align:center;
+                padding:40px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="register-wrapper">
+
+    <!-- LEFT -->
+
+    <div class="left-panel">
+
+        <div class="brand">
+            Portfolio Builder
+        </div>
+
+        <div class="tagline">
+            Create Your Professional Portfolio
+        </div>
+
+        <div class="description">
+            Join Portfolio Builder and showcase your projects, skills, achievements and experience with a beautiful portfolio that you can share with employers.
+        </div>
+
+    </div>
+
+    <!-- RIGHT -->
+
+    <div class="right-panel">
+
+        <div class="register-box">
+
+            <div class="title">
+                Create Account
+            </div>
+
+            <div class="subtitle">
+                Start building your portfolio today.
+            </div>
+
+            <form id="registerForm">
+
+                <input
+                    type="text"
+                    id="name"
+                    class="form-control"
+                    placeholder="Full Name"
+                    required
+                >
+
+                <input
+                    type="email"
+                    id="email"
+                    class="form-control"
+                    placeholder="Email Address"
+                    required
+                >
+
+                <input
+                    type="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Password"
+                    required
+                >
+
+                <button
+                    class="btn-custom"
+                    type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+            <div class="bottom-text">
+
+                Already have an account?
+
+                <a href="/login">
+                    Login
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+document.getElementById("registerForm").addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch("/api/auth/register", {
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+            name,
+            email,
+            password
+        })
+
+    });
+
+    const data = await res.json();
+
+    if(res.ok){
+
+        alert("Account created successfully");
+
+        window.location.href="/login";
+
+    }else{
+
+        alert(data.message || "Registration failed");
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
