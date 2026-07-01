@@ -19,12 +19,7 @@
   --muted: #64748b;
   --border: #e2e8f0;
 }
-    /* body{
-      margin:0;
-      background: var(--bg);
-      color:#1F2937;
-       font-family: "Segoe UI", sans-serif;
-    } */
+    
      body{
   margin:0;
   background: var(--bg);
@@ -32,14 +27,7 @@
   color: var(--text);
 }
 
-    /* .sidebar{
-      width:240px;
-      height:100vh;
-      position:fixed;
-      background:#FFFFFF;
-      border-right:1px solid #E5E7EB;
-      padding:20px;
-    } */
+   
     
     .sidebar{
   width:240px;
@@ -49,12 +37,7 @@
   border-right:1px solid var(--border);
   padding:20px;
 }
-    /* .brand{
-      font-size:1.3rem;
-      font-weight:700;
-      color:#334155;
-      margin-bottom:30px;
-    } */
+    
      .brand{
   font-size:1.3rem;
   font-weight:700;
@@ -62,19 +45,7 @@
   margin-bottom:30px;
 }
 
-    /* .nav-link{
-      display:block;
-      padding:10px;
-      margin-bottom:8px;
-      color:#6B7280;
-      text-decoration:none;
-      border-radius:10px;
-    }
-
-    .nav-link:hover{
-      background:#F3F4F6;
-      color:#1F2937;
-    } */
+ 
      .nav-link{
   display:block;
   padding:10px;
@@ -85,10 +56,7 @@
   transition: 0.2s ease;
 }
 
-/* .nav-link:hover{
-  background: var(--bg);
-  color: var(--text);
-} */
+
 .nav-link.active{
   background: var(--primary);
   color: white;
@@ -110,14 +78,7 @@
       margin-bottom:25px;
     }
 
-    /* .card-box{
-      background:#FFFFFF;
-      border:1px solid #E5E7EB;
-      border-radius:16px;
-      padding:20px;
-      height:100%;
-      transition: 0.3s ease;
-    } */
+    
 
     .card-box{
   background: var(--card);
@@ -129,11 +90,7 @@
   box-shadow: 0 6px 20px rgba(0,0,0,0.04);
 }
 
-    /* .stat-number{
-      font-size:1.8rem;
-      font-weight:700;
-      color:#334155;
-    } */
+    
      .stat-number{
   font-size:1.8rem;
   font-weight:700;
@@ -146,20 +103,7 @@
       margin-bottom:15px;
     }
 
-    /* .btn-custom{
-      background:#334155;
-      color:white;
-      border:none;
-      padding:10px 15px;
-      border-radius:10px;
-      text-decoration:none;
-      display:inline-block;
-    }
-
-    .btn-custom:hover{
-      background:#1F2937;
-      color:white;
-    } */
+    
 
 
     .btn-custom{
@@ -189,18 +133,6 @@
 
 <body>
 
-<!-- <div class="sidebar">
-  <div class="brand">Portfolio Builder</div>
-
-  <a class="nav-link" href="/dashboard">Dashboard</a>
-  <a class="nav-link" href="/profile">Profile</a>
-  <a class="nav-link" href="/projects">Projects</a>
-  <a class="nav-link" href="/public">Public Portfolio</a>
-  <a class="nav-link active" href="/dashboard">Dashboard</a>
-<a class="nav-link" href="/profile">Profile</a>
-<a class="nav-link" href="/projects">Projects</a>
-<a class="nav-link" href="/public">Public Portfolio</a>
-</div> -->
 <div class="sidebar">
 
     <div class="brand">
@@ -306,15 +238,7 @@ async function loadDashboard(){
   document.getElementById("profileCompletion").innerText = completion + "%";
 }
 
-// loadDashboard();
 
-// const username = localStorage.getItem("username");
-
-// const btn = document.getElementById("portfolioBtn");
-
-// if(btn){
-//   btn.href = username ? `/portfolio/${username}` : `/portfolio/demo`;
-// }
 const portfolioUsername = localStorage.getItem("username");
 
 const btn = document.getElementById("portfolioBtn");

@@ -1,184 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-  <title>Projects - AxioraX</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <style>
-    body {
-      margin: 0;
-      background: #0f0f1a;
-      color: white;
-      font-family: Arial;
-    }
-
-    .sidebar {
-      width: 240px;
-      height: 100vh;
-      position: fixed;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(10px);
-      padding: 20px;
-    }
-
-    .brand {
-      font-size: 1.5rem;
-      font-weight: bold;
-      background: linear-gradient(45deg, #ff4ecd, #7c4dff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      margin-bottom: 30px;
-    }
-
-    .nav-link {
-      color: #ccc;
-      padding: 10px;
-      display: block;
-      border-radius: 8px;
-      text-decoration: none;
-      margin-bottom: 10px;
-    }
-
-    .nav-link:hover {
-      background: rgba(255,255,255,0.1);
-      color: white;
-    }
-
-    .main {
-      margin-left: 260px;
-      padding: 30px;
-    }
-
-    .card-box {
-      background: rgba(255,255,255,0.05);
-      padding: 20px;
-      border-radius: 12px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 15px rgba(124,77,255,0.2);
-    }
-
-    .form-control {
-      background: transparent;
-      border: 1px solid #444;
-      color: white;
-    }
-
-    .form-control:focus {
-      box-shadow: none;
-      border-color: #7c4dff;
-    }
-
-    .btn-custom {
-      background: linear-gradient(45deg, #ff4ecd, #7c4dff);
-      border: none;
-      padding: 8px 15px;
-      color: white;
-      border-radius: 10px;
-    }
-
-    .project-card {
-      background: rgba(255,255,255,0.05);
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 15px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .project-title {
-      font-weight: bold;
-    }
-
-    .btn-small {
-      font-size: 12px;
-      margin-left: 5px;
-    }
-  </style>
-</head>
-
-<body>
-
-
-<div class="sidebar">
-  <div class="brand">AxioraX</div>
-
-  <a class="nav-link" href="/dashboard">Dashboard</a>
-  <a class="nav-link" href="/profile">Profile</a>
-  <a class="nav-link" href="/projects">Projects</a>
-</div>
-
-
-<div class="main">
-
-  <h2>My Projects</h2>
-  <p>Add, edit and manage your portfolio projects</p>
-
-  
-  <div class="card-box mt-4">
-
-    <h5>Add New Project</h5>
-
-    <form>
-      <input class="form-control mb-2" placeholder="Project Title">
-
-      <input class="form-control mb-2" placeholder="Description">
-
-      <input class="form-control mb-2" placeholder="GitHub Link">
-
-      <input class="form-control mb-2" placeholder="Live Link">
-
-      <button class="btn-custom">Add Project</button>
-    </form>
-
-  </div>
-
-  
-  <h5 class="mt-4">Your Projects</h5>
-
-  <div class="project-card">
-    <div>
-      <div class="project-title">Portfolio Builder</div>
-      <small>MERN Stack Project</small>
-    </div>
-
-    <div>
-      <button class="btn-custom btn-small">Edit</button>
-      <button class="btn-custom btn-small">Delete</button>
-    </div>
-  </div>
-
-  <div class="project-card">
-    <div>
-      <div class="project-title">E-commerce App</div>
-      <small>Full Stack Project</small>
-    </div>
-
-    <div>
-      <button class="btn-custom btn-small">Edit</button>
-      <button class="btn-custom btn-small">Delete</button>
-    </div>
-  </div>
-
-</div>
-
-<script>
-function checkAuth() {
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    window.location.href = "/login";
-  }
-}
-
-checkAuth();
-</script>
-
-
-</body>
-</html> -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -187,12 +6,7 @@ checkAuth();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <style>
-    /* body{
-      margin:0;
-      background:#FAFAF7;
-      font-family:"Segoe UI", sans-serif;
-      color:#1F2937;
-    } */
+    
 
     body{
     margin:0;
@@ -212,12 +26,7 @@ checkAuth();
     padding:20px;
 }
 
-    /* .brand{
-      font-size:1.3rem;
-      font-weight:700;
-      color:#334155;
-      margin-bottom:30px;
-    } */
+   
      .brand{
     font-size:1.3rem;
     font-weight:700;
@@ -225,19 +34,7 @@ checkAuth();
     margin-bottom:30px;
 }
 
-    /* .nav-link{
-      display:block;
-      padding:10px;
-      margin-bottom:8px;
-      color:#6B7280;
-      text-decoration:none;
-      border-radius:10px;
-    }
-
-    .nav-link:hover{
-      background:#F3F4F6;
-      color:#1F2937;
-    } */
+    
 
     .nav-link{
     display:block;
@@ -271,13 +68,7 @@ checkAuth();
       margin-bottom:25px;
     }
 
-    /* CARD */
-    /* .card-box{
-      background:#FFFFFF;
-      border:1px solid #E5E7EB;
-      border-radius:16px;
-      padding:20px;
-    } */
+    
      .card-box{
     background:var(--card);
     border:1px solid var(--border);
@@ -299,26 +90,12 @@ checkAuth();
       padding:10px;
     }
 
-    /* .form-control:focus{
-      border-color:#334155;
-      box-shadow:none;
-    } */
+    
      .form-control:focus{
     border-color:var(--primary);
     box-shadow:0 0 0 .2rem rgba(37,99,235,.15);
 }
 
-    /* .btn-custom{
-      background:#334155;
-      color:white;
-      border:none;
-      padding:10px 15px;
-      border-radius:10px;
-    }
-
-    .btn-custom:hover{
-      background:#1F2937;
-    } */
    
    
     .btn-custom{
@@ -338,14 +115,7 @@ checkAuth();
     color:#fff !important;
     transform:translateY(-2px);
 }
-    /* PROJECT CARD */
-    /* .project-card{
-      background:#FFFFFF;
-      border:1px solid #E5E7EB;
-      border-radius:16px;
-      padding:15px;
-      margin-bottom:15px;
-    } */
+    
      .project-card{
     background:var(--card);
     border:1px solid var(--border);
@@ -387,31 +157,12 @@ checkAuth();
     transform:translateY(-2px);
 }
 
-/* .btn-delete{
-    background:#dc3545;
-    color:white;
-    border:none;
-    padding:10px 15px;
-    border-radius:10px;
-    transition:0.3s;
-}
 
-.btn-delete:hover{
-    background:#bb2d3b;
-} */
   </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
-<!-- <div class="sidebar">
-  <div class="brand">Portfolio Builder</div>
-
-  <a class="nav-link" href="/dashboard">Dashboard</a>
-  <a class="nav-link" href="/profile">Profile</a>
-  <a class="nav-link" href="/projects">Projects</a>
-</div> -->
 <div class="sidebar">
 
     <div class="brand">
