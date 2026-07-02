@@ -240,43 +240,107 @@
 
 </div>
 
+<div id="toast" style="
+position:fixed;
+top:20px;
+right:20px;
+padding:15px 25px;
+border-radius:10px;
+background:#334155;
+color:white;
+display:none;
+z-index:9999;
+font-weight:600;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+"></div>
+
 <script>
 
-document.getElementById("registerForm").addEventListener("submit", async (e) => {
+function showToast(message, type) {
+
+    const toast = document.getElementById("toast");
+
+    toast.innerHTML = message;
+
+    toast.style.background =
+        type === "success"
+            ? "#16a34a"
+            : "#dc2626";
+
+    toast.style.display = "block";
+
+    setTimeout(() => {
+        toast.style.display = "none";
+    }, 2500);
+
+}
+
+document
+.getElementById("registerForm")
+.addEventListener("submit", async (e) => {
 
     e.preventDefault();
 
-    const name = document.getElementById("name").value;
-    const email = document.getElementById("email").value;
+    const submitBtn = document.querySelector("#registerForm button");
+
+    submitBtn.disabled = true;
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
-    const res = await fetch("/api/auth/register", {
+    try {
 
-        method:"POST",
+        const res = await fetch("/api/auth/register", {
 
-        headers:{
-            "Content-Type":"application/json"
-        },
+            method: "POST",
 
-        body:JSON.stringify({
-            name,
-            email,
-            password
-        })
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-    });
+            body: JSON.stringify({
+                name,
+                email,
+                password
+            })
 
-    const data = await res.json();
+        });
 
-    if(res.ok){
+        const data = await res.json();
 
-        alert("Account created successfully");
+        if (!res.ok) {
 
-        window.location.href="/login";
+            submitBtn.disabled = false;
 
-    }else{
+            showToast(
+                data.message || "Registration failed",
+                "danger"
+            );
 
-        alert(data.message || "Registration failed");
+            return;
+
+        }
+
+        showToast(
+            "Account created successfully!",
+            "success"
+        );
+
+        document.getElementById("registerForm").reset();
+
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 1000);
+
+    } catch (err) {
+
+        submitBtn.disabled = false;
+
+        showToast(
+            "Server Error",
+            "danger"
+        );
 
     }
 

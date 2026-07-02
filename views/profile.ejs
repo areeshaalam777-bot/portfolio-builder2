@@ -173,7 +173,8 @@ label{
   <div class="subtitle">Update your personal portfolio information</div>
 
   <div class="card-box">
-   
+    
+    <div id="messageBox" class="mb-3"></div>
 
     <form id="profileForm" enctype="multipart/form-data">
 
@@ -253,6 +254,27 @@ const token = localStorage.getItem("token");
 if (!token) {
   window.location.href = "/login";
 }
+function showMessage(message, type) {
+    const messageBox = document.getElementById("messageBox");
+
+    messageBox.innerHTML = `
+        <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    `;
+
+    const alertElement = messageBox.querySelector(".alert");
+
+    setTimeout(() => {
+        if (alertElement) {
+            const bsAlert = bootstrap.Alert.getOrCreateInstance(alertElement);
+            bsAlert.close();
+        }
+    }, 3000);
+}
+
+
 
 // LOAD PROFILE
 async function loadProfile() {
@@ -341,16 +363,26 @@ document
 
     const data = await res.json();
 
-    if (res.ok) {
+   if (res.ok) {
+
       localStorage.setItem(
         "username",
         document.getElementById("username").value
       );
 
-      alert("Profile saved successfully");
-    } else {
-      alert(data.message || "Error saving profile");
-    }
+      showMessage(
+        "Profile saved successfully!",
+        "success"
+      );
+
+} else {
+
+      showMessage(
+        data.message || "Error saving profile.",
+        "danger"
+      );
+
+}
   });
     const username = localStorage.getItem("username");
 
@@ -370,6 +402,6 @@ function logout() {
     window.location.href = "/login";
 }
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

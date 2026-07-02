@@ -257,7 +257,6 @@ body{
 <div class="login-wrapper">
 
     <!-- LEFT SIDE -->
-
     <div class="left-panel">
 
         <div class="brand">
@@ -275,7 +274,6 @@ body{
     </div>
 
     <!-- RIGHT SIDE -->
-
     <div class="right-panel">
 
         <div class="login-box">
@@ -307,13 +305,13 @@ body{
                 >
 
                 <div class="d-flex justify-content-end mb-3">
+                    <a href="/forgot-password" class="text-decoration-none">
+                        Forgot Password?
+                    </a>
+                </div>
 
-    <a href="/forgot-password" class="text-decoration-none">
-        Forgot Password?
-    </a>
-
-</div>
                 <button
+                    id="loginBtn"
                     class="btn-custom"
                     type="submit">
                     Login
@@ -322,13 +320,10 @@ body{
             </form>
 
             <div class="bottom-text">
-
                 Don't have an account?
-
                 <a href="/register">
                     Create Account
                 </a>
-
             </div>
 
         </div>
@@ -336,19 +331,23 @@ body{
     </div>
 
 </div>
-<div id="toast" style="
+
+<!-- Toast -->
+<div id="toast"
+style="
 position:fixed;
 top:20px;
 right:20px;
 padding:15px 25px;
 border-radius:10px;
 background:#334155;
-color:white;
+color:#fff;
 display:none;
 z-index:9999;
 font-weight:600;
 box-shadow:0 10px 30px rgba(0,0,0,.2);
-"></div>
+">
+</div>
 
 <script>
 
@@ -358,8 +357,10 @@ function showToast(message,type){
 
     toast.innerHTML=message;
 
-    toast.style.background =
-        type==="success" ? "#16a34a" : "#dc2626";
+    toast.style.background=
+        type==="success"
+        ? "#16a34a"
+        : "#dc2626";
 
     toast.style.display="block";
 
@@ -370,10 +371,14 @@ function showToast(message,type){
 }
 
 const form=document.getElementById("loginForm");
+const loginBtn=document.getElementById("loginBtn");
 
 form.addEventListener("submit",async(e)=>{
 
     e.preventDefault();
+
+    loginBtn.disabled=true;
+    loginBtn.innerText="Logging in...";
 
     const email=document.getElementById("email").value.trim();
     const password=document.getElementById("password").value;
@@ -399,7 +404,13 @@ form.addEventListener("submit",async(e)=>{
 
         if(!res.ok){
 
-            showToast(data.message || "Login Failed","danger");
+            showToast(
+                data.message || "Login failed",
+                "danger"
+            );
+
+            loginBtn.disabled=false;
+            loginBtn.innerText="Login";
             return;
 
         }
@@ -410,7 +421,10 @@ form.addEventListener("submit",async(e)=>{
             localStorage.setItem("username",data.username);
         }
 
-        showToast("Login Successful","success");
+        showToast(
+            "Login successful!",
+            "success"
+        );
 
         setTimeout(()=>{
 
@@ -424,7 +438,13 @@ form.addEventListener("submit",async(e)=>{
 
     }catch(err){
 
-        showToast("Server Error","danger");
+        showToast(
+            "Server error. Please try again.",
+            "danger"
+        );
+
+        loginBtn.disabled=false;
+        loginBtn.innerText="Login";
 
     }
 

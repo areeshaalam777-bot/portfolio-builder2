@@ -54,258 +54,366 @@ margin-bottom:25px;
 
 <div class="sidebar">
 
-<h3>Admin</h3>
+    <div class="brand">
+        Portfolio Builder
+    </div>
 
-<a href="/dashboard">Dashboard</a>
+    <a class="nav-link" href="/dashboard">
+        📊 Dashboard
+    </a>
 
-<a href="/profile">Profile</a>
+    <a class="nav-link" href="/profile">
+        👤 Profile
+    </a>
 
-<a href="/projects">Projects</a>
+    <a class="nav-link" href="/projects">
+        💼 Projects
+    </a>
 
-<a href="#" onclick="logout()">Logout</a>
+    <a class="nav-link active" href="/admin">
+        🛠 Admin
+    </a>
+
+    <hr>
+
+    <a
+        class="nav-link text-danger"
+        href="#"
+        onclick="logout()"
+    >
+        🚪 Logout
+    </a>
 
 </div>
 
 <div class="main">
 
-<h2 class="mb-4">Admin Dashboard</h2>
+    <div class="title">
+        Admin Dashboard
+    </div>
 
-<div class="row mb-4">
+    <div class="subtitle">
+        Manage users, projects and monitor system statistics.
+    </div>
 
-<div class="col-md-4">
+    <div id="messageBox" class="mb-4"></div>
 
-<div class="card p-4 text-center">
+    <!-- Statistics -->
 
-<h3 id="usersCount">0</h3>
+    <div class="row g-4 mb-5">
 
-<p>Total Users</p>
+        <div class="col-md-4">
+
+            <div class="card-box text-center">
+
+                <h2 id="usersCount">0</h2>
+
+                <p class="text-muted mb-0">
+                    Total Users
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card-box text-center">
+
+                <h2 id="projectsCount">0</h2>
+
+                <p class="text-muted mb-0">
+                    Total Projects
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card-box text-center">
+
+                <h2 id="profilesCount">0</h2>
+
+                <p class="text-muted mb-0">
+                    Total Profiles
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Users -->
+
+    <div class="card-box mb-5">
+
+        <h4 class="mb-4">
+            Registered Users
+        </h4>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+
+                        <th>Email</th>
+
+                        <th width="140">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="usersTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- Projects -->
+
+    <div class="card-box">
+
+        <h4 class="mb-4">
+            Published Projects
+        </h4>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Project Title</th>
+
+                        <th width="140">
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="projectsTable"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
 
 </div>
 
-</div>
 
-<div class="col-md-4">
 
-<div class="card p-4 text-center">
-
-<h3 id="projectsCount">0</h3>
-
-<p>Total Projects</p>
-
-</div>
-
-</div>
-
-<div class="col-md-4">
-
-<div class="card p-4 text-center">
-
-<h3 id="profilesCount">0</h3>
-
-<p>Total Profiles</p>
-
-</div>
-
-</div>
-
-</div>
-
-<h3>Users</h3>
-
-<table class="table table-bordered">
-
-<thead>
-
-<tr>
-
-<th>Name</th>
-
-<th>Email</th>
-
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody id="usersTable"></tbody>
-
-</table>
-
-<h3 class="mt-5">Projects</h3>
-
-<table class="table table-bordered">
-
-<thead>
-
-<tr>
-
-<th>Title</th>
-
-<th>Action</th>
-
-</tr>
-
-</thead>
-
-<tbody id="projectsTable"></tbody>
-
-</table>
-
-</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
 
-const token=localStorage.getItem("token");
+const token = localStorage.getItem("token");
 
-async function loadStats(){
+if (!token) {
+    window.location.href = "/login";
+}
 
-const res=await fetch("/api/admin/stats",{
+async function loadStats() {
 
-headers:{Authorization:"Bearer "+token}
+    try {
 
-});
+        const res = await fetch("/api/admin/stats", {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        });
 
-const data=await res.json();
+        if (!res.ok) throw new Error();
 
-document.getElementById("usersCount").innerText=data.totalUsers;
+        const data = await res.json();
 
-document.getElementById("projectsCount").innerText=data.totalProjects;
+        document.getElementById("usersCount").innerText = data.totalUsers;
+        document.getElementById("projectsCount").innerText = data.totalProjects;
+        document.getElementById("profilesCount").innerText = data.totalProfiles;
 
-document.getElementById("profilesCount").innerText=data.totalProfiles;
+    } catch {
+
+        alert("Unable to load dashboard statistics.");
+
+    }
 
 }
 
-async function loadUsers(){
+async function loadUsers() {
 
-const res=await fetch("/api/admin/users",{
+    try {
 
-headers:{Authorization:"Bearer "+token}
+        const res = await fetch("/api/admin/users", {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        });
 
-});
+        if (!res.ok) throw new Error();
 
-const users=await res.json();
+        const users = await res.json();
 
-const table=document.getElementById("usersTable");
+        const table = document.getElementById("usersTable");
+        table.innerHTML = "";
 
-table.innerHTML="";
+        users.forEach(user => {
 
-users.forEach(user=>{
+            table.innerHTML += `
+                <tr>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>
+                        <button
+                            class="btn btn-danger btn-sm"
+                            onclick="deleteUser('${user._id}')">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            `;
 
-table.innerHTML+=`
+        });
 
-<tr>
+    } catch {
 
-<td>${user.name}</td>
+        alert("Unable to load users.");
 
-<td>${user.email}</td>
-
-<td>
-
-<button class="btn btn-danger btn-sm"
-
-onclick="deleteUser('${user._id}')">
-
-Delete
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-}
-
-async function loadProjects(){
-
-const res=await fetch("/api/admin/projects",{
-
-headers:{Authorization:"Bearer "+token}
-
-});
-
-const projects=await res.json();
-
-const table=document.getElementById("projectsTable");
-
-table.innerHTML="";
-
-projects.forEach(project=>{
-
-table.innerHTML+=`
-
-<tr>
-
-<td>${project.title}</td>
-
-<td>
-
-<button class="btn btn-danger btn-sm"
-
-onclick="deleteProject('${project._id}')">
-
-Delete
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
+    }
 
 }
 
-async function deleteUser(id){
+async function loadProjects() {
 
-await fetch("/api/admin/users/"+id,{
+    try {
 
-method:"DELETE",
+        const res = await fetch("/api/admin/projects", {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        });
 
-headers:{Authorization:"Bearer "+token}
+        if (!res.ok) throw new Error();
 
-});
+        const projects = await res.json();
 
+        const table = document.getElementById("projectsTable");
+        table.innerHTML = "";
+
+        projects.forEach(project => {
+
+            table.innerHTML += `
+                <tr>
+                    <td>${project.title}</td>
+                    <td>
+                        <button
+                            class="btn btn-danger btn-sm"
+                            onclick="deleteProject('${project._id}')">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            `;
+
+        });
+
+    } catch {
+
+        alert("Unable to load projects.");
+
+    }
+
+}
+
+async function deleteUser(id) {
+
+    if (!confirm("Delete this user?")) return;
+
+    try {
+
+        const res = await fetch("/api/admin/users/" + id, {
+            method: "DELETE",
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.message || "Unable to delete user.");
+            return;
+        }
+
+        loadUsers();
+        loadStats();
+
+    } catch {
+
+        alert("Server error.");
+
+    }
+
+}
+
+async function deleteProject(id) {
+
+    if (!confirm("Delete this project?")) return;
+
+    try {
+
+        const res = await fetch("/api/admin/projects/" + id, {
+            method: "DELETE",
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+            alert(data.message || "Unable to delete project.");
+            return;
+        }
+
+        loadProjects();
+        loadStats();
+
+    } catch {
+
+        alert("Server error.");
+
+    }
+
+}
+
+function logout() {
+
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+
+    window.location.href = "/login";
+
+}
+
+loadStats();
 loadUsers();
-
-loadStats();
-
-}
-
-async function deleteProject(id){
-
-await fetch("/api/admin/projects/"+id,{
-
-method:"DELETE",
-
-headers:{Authorization:"Bearer "+token}
-
-});
-
-loadProjects();
-
-loadStats();
-
-}
-
-function logout(){
-
-localStorage.clear();
-
-window.location="/login";
-
-}
-
-loadStats();
-
-loadUsers();
-
 loadProjects();
 
 </script>

@@ -469,122 +469,112 @@ let allProjects = [];
 
 async function loadPortfolio() {
 
-    const username = window.location.pathname.split("/").pop();
+    try {
 
-    const res = await fetch("/api/profile/" + username);
-    const data = await res.json();
+        const username = window.location.pathname.split("/").pop();
 
-    if (!res.ok) {
+        const res = await fetch("/api/profile/" + username);
+        const data = await res.json();
+
+        if (!res.ok) {
+
+            document.body.innerHTML =
+                "<h2 style='text-align:center;margin-top:80px;'>Profile not found</h2>";
+
+            return;
+
+        }
+
+        // HERO
+
+        document.getElementById("name").innerText =
+            data.profile.username;
+
+        document.getElementById("bio").innerText =
+            data.profile.bio || "";
+
+        document.getElementById("avatar").innerText =
+    (data.profile.username || "U").charAt(0).toUpperCase();
+
+        // ABOUT
+
+        document.getElementById("education").innerText =
+            data.profile.education || "Not added";
+
+        document.getElementById("email").innerText =
+            data.profile.emailAddress || "Not provided";
+
+        document.getElementById("views").innerText =
+            data.profile.views || 0;
+
+        // SKILLS
+
+        if (data.profile.skills && data.profile.skills.length > 0) {
+
+            document.getElementById("skills").innerHTML =
+                data.profile.skills
+                    .map(skill => `<span>${skill}</span>`)
+                    .join("");
+
+        } else {
+
+            document.getElementById("skillsSection").style.display = "none";
+
+        }
+
+        // SOCIAL LINKS
+
+        if (data.profile.socialLinks?.github) {
+
+            const githubBtn = document.getElementById("githubBtn");
+            githubBtn.href = data.profile.socialLinks.github;
+            githubBtn.style.display = "inline-block";
+
+        }
+
+        if (data.profile.socialLinks?.linkedin) {
+
+            const linkedinBtn = document.getElementById("linkedinBtn");
+            linkedinBtn.href = data.profile.socialLinks.linkedin;
+            linkedinBtn.style.display = "inline-block";
+
+        }
+
+        if (data.profile.resume) {
+
+            const resumeBtn = document.getElementById("resumeBtn");
+            resumeBtn.href = data.profile.resume;
+            resumeBtn.style.display = "inline-block";
+
+        }
+
+        // STATISTICS
+
+        document.getElementById("projectCount").innerText =
+            data.projects.length;
+
+        document.getElementById("skillCount").innerText =
+            data.profile.skills
+                ? data.profile.skills.length
+                : 0;
+
+        document.getElementById("viewCount").innerText =
+            data.profile.views || 0;
+
+        // PROJECTS
+
+        allProjects = data.projects;
+
+        renderProjects(allProjects);
+
+    } catch {
 
         document.body.innerHTML =
-            "<h2 style='text-align:center;margin-top:80px;'>Profile not found</h2>";
-
-        return;
-    }
-
-    // ==========================
-    // HERO
-    // ==========================
-
-    document.getElementById("name").innerText =
-        data.profile.username;
-
-    document.getElementById("bio").innerText =
-        data.profile.bio || "";
-
-    document.getElementById("avatar").innerText =
-        data.profile.username.charAt(0).toUpperCase();
-
-
-    // ==========================
-    // ABOUT
-    // ==========================
-
-    document.getElementById("education").innerText =
-    data.profile.education || "Not added";
-
-document.getElementById("email").innerText =
-    data.profile.emailAddress || "Not provided";
-
-document.getElementById("views").innerText =
-    data.profile.views || 0;
-
-
-    // ==========================
-    // SKILLS
-    // ==========================
-
-    if (data.profile.skills && data.profile.skills.length > 0) {
-
-        document.getElementById("skills").innerHTML =
-            data.profile.skills
-                .map(skill => `<span>${skill}</span>`)
-                .join("");
-
-    } else {
-
-        document.getElementById("skillsSection").style.display = "none";
+            "<h2 style='text-align:center;margin-top:80px;'>Unable to load portfolio.</h2>";
 
     }
-
-
-    // ==========================
-    // SOCIAL BUTTONS
-    // ==========================
-
-    if (data.profile.socialLinks?.github) {
-
-        const githubBtn = document.getElementById("githubBtn");
-        githubBtn.href = data.profile.socialLinks.github;
-        githubBtn.style.display = "inline-block";
-
-    }
-
-    if (data.profile.socialLinks?.linkedin) {
-
-        const linkedinBtn = document.getElementById("linkedinBtn");
-        linkedinBtn.href = data.profile.socialLinks.linkedin;
-        linkedinBtn.style.display = "inline-block";
-
-    }
-
-    if (data.profile.resume) {
-
-        const resumeBtn = document.getElementById("resumeBtn");
-        resumeBtn.href = data.profile.resume;
-        resumeBtn.style.display = "inline-block";
-
-    }
-
-
-    // ==========================
-    // PORTFOLIO STATS
-    // ==========================
-
-    document.getElementById("projectCount").innerText =
-        data.projects.length;
-
-    document.getElementById("skillCount").innerText =
-        data.profile.skills ? data.profile.skills.length : 0;
-
-    document.getElementById("viewCount").innerText =
-        data.profile.views || 0;
-
-
-    // ==========================
-    // PROJECTS
-    // ==========================
-
-    allProjects = data.projects;
-
-    renderProjects(allProjects);
 
 }
-
-
-// ==========================
-// RENDER PROJECTS
-// ==========================
 
 function renderProjects(projects) {
 
@@ -603,49 +593,50 @@ function renderProjects(projects) {
         `;
 
         return;
+
     }
 
     projects.forEach(project => {
 
         container.innerHTML += `
 
-        <div class="col-md-6">
+            <div class="col-md-6">
 
-            <div class="card-box h-100">
+                <div class="card-box h-100">
 
-                <h5>${project.title}</h5>
+                    <h5>${project.title}</h5>
 
-                <p class="project-description">
-                    ${project.description || "No description provided."}
-                </p>
+                    <p class="project-description">
+                        ${project.description || "No description provided."}
+                    </p>
 
-                ${
-                    project.github
-                    ? `
-                    <a href="${project.github}"
-                       target="_blank"
-                       class="btn-custom me-2 mb-2">
-                        GitHub
-                    </a>
-                    `
-                    : ""
-                }
+                    ${
+                        project.github
+                            ? `
+                            <a href="${project.github}"
+                               target="_blank"
+                               class="btn-custom me-2 mb-2">
+                                GitHub
+                            </a>
+                            `
+                            : ""
+                    }
 
-                ${
-                    project.liveLink
-                    ? `
-                    <a href="${project.liveLink}"
-                       target="_blank"
-                       class="btn-custom mb-2">
-                        Live Demo
-                    </a>
-                    `
-                    : ""
-                }
+                    ${
+                        project.liveLink
+                            ? `
+                            <a href="${project.liveLink}"
+                               target="_blank"
+                               class="btn-custom mb-2">
+                                Live Demo
+                            </a>
+                            `
+                            : ""
+                    }
+
+                </div>
 
             </div>
-
-        </div>
 
         `;
 
@@ -653,23 +644,16 @@ function renderProjects(projects) {
 
 }
 
-
-// ==========================
-// SEARCH PROJECTS
-// ==========================
-
 function filterProjects() {
 
-    const keyword =
-        document.getElementById("searchProject")
+    const keyword = document
+        .getElementById("searchProject")
         .value
         .toLowerCase();
 
     const filtered = allProjects.filter(project =>
 
-        project.title.toLowerCase().includes(keyword)
-
-        ||
+        project.title.toLowerCase().includes(keyword) ||
 
         (project.description || "")
             .toLowerCase()
@@ -681,24 +665,21 @@ function filterProjects() {
 
 }
 
+async function copyPortfolioLink() {
 
-// ==========================
-// COPY PORTFOLIO LINK
-// ==========================
+    try {
 
-function copyPortfolioLink() {
+        await navigator.clipboard.writeText(window.location.href);
 
-    navigator.clipboard.writeText(window.location.href);
+        alert("Portfolio link copied!");
 
-    alert("Portfolio link copied!");
+    } catch {
+
+        alert("Unable to copy link.");
+
+    }
 
 }
-
-
-// ==========================
-// LOAD PAGE
-// ==========================
-
 loadPortfolio();
 
 </script>

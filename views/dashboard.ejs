@@ -212,60 +212,101 @@
 
 const token = localStorage.getItem("token");
 
-async function loadDashboard(){
+if (!token) {
+    window.location.href = "/login";
+}
 
-  const res = await fetch("/api/dashboard",{
-    headers:{
-      Authorization:"Bearer " + token
+async function loadDashboard() {
+
+    try {
+
+        const res = await fetch("/api/dashboard", {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        });
+
+      if (!res.ok) {
+
+    if (res.status === 401) {
+
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        window.location.href = "/login";
+        return;
+
     }
-  });
 
-  const data = await res.json();
+    throw new Error("Failed to load dashboard");
 
-  if(!res.ok) return;
-
-  document.getElementById("projectCount").innerText = data.totalProjects || 0;
-  document.getElementById("portfolioViews").innerText = (data.totalProjects || 0) * 5;
-
-  let completion = 0;
-
-  if(data.profile?.username) completion += 20;
-  if(data.profile?.bio) completion += 20;
-  if(data.profile?.education) completion += 20;
-  if(data.profile?.skills?.length) completion += 20;
-  if(data.profile?.socialLinks?.github) completion += 20;
-
-  document.getElementById("profileCompletion").innerText = completion + "%";
 }
 
+        const data = await res.json();
 
-const portfolioUsername = localStorage.getItem("username");
+        document.getElementById("projectCount").innerText =
+            data.totalProjects || 0;
 
-const btn = document.getElementById("portfolioBtn");
+        // document.getElementById("portfolioViews").innerText =
+        //     (data.totalProjects || 0) * 5;
 
-if (btn && portfolioUsername) {
-  btn.href = `/portfolio/${portfolioUsername}`;
-} else if (btn) {
-  btn.style.display = "none";
+document.getElementById("portfolioViews").innerText =
+    data.profile?.views || 0;
+
+        let completion = 0;
+
+        if (data.profile?.username) completion += 20;
+        if (data.profile?.bio) completion += 20;
+        if (data.profile?.education) completion += 20;
+        if (data.profile?.skills?.length) completion += 20;
+        if (data.profile?.socialLinks?.github) completion += 20;
+
+        document.getElementById("profileCompletion").innerText =
+            completion + "%";
+
+    } catch {
+
+        console.error("Unable to load dashboard.");
+
+    }
+
 }
+
 const username = localStorage.getItem("username");
+
+const portfolioBtn = document.getElementById("portfolioBtn");
+
+if (portfolioBtn) {
+
+    if (username) {
+        portfolioBtn.href = `/portfolio/${username}`;
+    } else {
+        portfolioBtn.style.display = "none";
+    }
+
+}
 
 const portfolioLink = document.getElementById("portfolioLink");
 
 if (portfolioLink) {
+
     if (username) {
         portfolioLink.href = `/portfolio/${username}`;
     } else {
         portfolioLink.style.display = "none";
     }
+
 }
 
 function logout() {
+
     localStorage.removeItem("token");
     localStorage.removeItem("username");
+
     window.location.href = "/login";
+
 }
 
+loadDashboard();
 </script>
 
 </body>
