@@ -220,17 +220,6 @@ label{
     class="form-control mb-3"
     placeholder="Public Email"
   >
-
-  <label class="mb-2 fw-semibold">
-    Upload Resume (PDF)
-  </label>
-
-  <input
-    type="file"
-    id="resume"
-    class="form-control mb-3"
-    accept=".pdf"
-  >
  
 
 
@@ -347,11 +336,6 @@ document
       document.getElementById("linkedin").value
     );
 
-    const resumeInput = document.getElementById("resume");
-
-    if (resumeInput && resumeInput.files.length > 0) {
-      formData.append("resume", resumeInput.files[0]);
-    }
 
     const res = await fetch("/api/profile", {
       method: "POST",

@@ -9,7 +9,8 @@ const {
 
 const { protect } = require("../middleware/authMiddleware");
 const upload = require("../middleware/uploadMiddleware");
-router.post("/",protect,upload.single("resume"),createProfile);
+
+router.post("/", protect, upload.none(), createProfile);
 
 router.get("/me", protect, getMyProfile);
 

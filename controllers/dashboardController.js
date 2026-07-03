@@ -12,9 +12,14 @@ const getDashboard = async (req, res) => {
       projects,
     });
 
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+  } 
+  catch (error) {
+  console.error(error);
+
+  res.status(500).json({
+    message: "Internal server error",
+  });
+}
 };
 
 module.exports = { getDashboard };

@@ -9,7 +9,6 @@ const createProfile = async (req, res) => {
       bio,
       education,
       skills,
-      socialLinks,
       emailAddress,
     } = req.body;
 
@@ -17,23 +16,37 @@ const createProfile = async (req, res) => {
       user: req.user.id,
     });
 
-    const safeUsername = username?.trim().toLowerCase();
+   if (!username || !username.trim()) {
+  return res.status(400).json({
+    message: "Username is required.",
+  });
+}
+
+  
+   const safeUsername = username.trim().toLowerCase();
+
+    const existingUsername = await Profile.findOne({
+  username: safeUsername,
+});
+
+if (
+  existingUsername &&
+  existingUsername.user.toString() !== req.user.id
+) {
+  return res.status(400).json({
+    message: "Username is already taken.",
+  });
+}
+
 
     const safeSkills = skills
       ? skills.split(",").map((skill) => skill.trim())
       : [];
 
-    
     const safeSocialLinks = {
-  github:
-    req.body["socialLinks[github]"] || "",
-  linkedin:
-    req.body["socialLinks[linkedin]"] || "",
-};
-
-    const resumePath = req.file
-      ? "/uploads/" + req.file.filename
-      : profile?.resume || "";
+      github: req.body["socialLinks[github]"] || "",
+      linkedin: req.body["socialLinks[linkedin]"] || "",
+    };
 
     if (profile) {
       profile.username = safeUsername;
@@ -42,7 +55,6 @@ const createProfile = async (req, res) => {
       profile.skills = safeSkills;
       profile.socialLinks = safeSocialLinks;
       profile.emailAddress = emailAddress;
-      profile.resume = resumePath;
 
       await profile.save();
 
@@ -57,16 +69,18 @@ const createProfile = async (req, res) => {
       skills: safeSkills,
       socialLinks: safeSocialLinks,
       emailAddress,
-      resume: resumePath,
     });
 
     res.status(201).json(profile);
 
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
+  } 
+  catch (error) {
+  console.error(error);
+
+  res.status(500).json({
+    message: "Internal server error",
+  });
+}
 };
 
 // GET MY PROFILE
@@ -108,19 +122,19 @@ const getPublicProfile = async (req, res) => {
       });
     }
 
-
     profile.views += 1;
 
-await profile.save();
+    await profile.save();
 
-const projects = await Project.find({
-  user: profile.user,
-});
+    const projects = await Project.find({
+      user: profile.user,
+    });
 
-res.json({
-  profile,
-  projects,
-});
+    res.json({
+      profile,
+      projects,
+    });
+
   } catch (error) {
     res.status(500).json({
       message: error.message,

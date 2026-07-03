@@ -368,13 +368,7 @@ a{
             LinkedIn
         </a>
 
-    <a id="resumeBtn"
-       href="#"
-       class="hero-btn"
-       target="_blank"
-       style="display:none;">
-        Resume
-    </a>
+    
 
     <button class="hero-btn"
             onclick="copyPortfolioLink()">
@@ -540,13 +534,6 @@ async function loadPortfolio() {
 
         }
 
-        if (data.profile.resume) {
-
-            const resumeBtn = document.getElementById("resumeBtn");
-            resumeBtn.href = data.profile.resume;
-            resumeBtn.style.display = "inline-block";
-
-        }
 
         // STATISTICS
 

@@ -11,10 +11,6 @@ const profileSchema = mongoose.Schema(
     type:String,
     default:""
 },
-resume:{
-   type:String,
-   default:""
-},
 
 views:{
    type:Number,
